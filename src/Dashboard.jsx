@@ -48,45 +48,44 @@ import {
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
-// Mock Data
+// Mock Data - UAE HRMS Context
 const statsData = [
-    { title: 'Total Candidates', value: 421, trend: 12, icon: <UsergroupAddOutlined /> },
-    { title: 'Candidate Interviewed', value: 240, trend: 12, icon: <TeamOutlined /> },
-    { title: 'Active Jobs', value: 124, trend: 12, icon: <SolutionOutlined /> },
-    { title: 'Offer Accepted', value: 210, trend: 12, icon: <FileProtectOutlined /> },
+    { title: 'Total Employees', value: 421, trend: 5, icon: <UsergroupAddOutlined /> },
+    { title: 'Visa Processing', value: 12, trend: 2, icon: <SafetyCertificateOutlined /> },
+    { title: 'Active Vacancies', value: 24, trend: 0, icon: <SolutionOutlined /> },
+    { title: 'Leave Requests', value: 8, trend: 12, icon: <FileProtectOutlined /> },
 ];
 
 const tasksData = [
-    { title: 'Join the Teacher Growth Workshop', assignee: 'John Freed', status: 'Overdue', date: 'Fri, 14 Feb', assigneeAvatar: 'J' },
-    { title: 'Get Midterm Materials Ready', assignee: 'Panji Dwi', status: 'Todo', date: 'Thu, 13 Feb', assigneeAvatar: 'P' },
-    { title: 'Interview feedback for JC', assignee: 'Luca Modric', status: 'Doing', date: 'Wed, 12 Feb', assigneeAvatar: 'L' },
-    { title: 'Update Student Progress Reports', assignee: 'Yahyo', status: 'Doing', date: 'Wed, 12 Feb', assigneeAvatar: 'Y' },
-    { title: 'Catch Up with the Curriculum Team', assignee: 'Aditya Irawan', status: 'Doing', date: 'Thu, 13 Feb', assigneeAvatar: 'A' },
+    { title: 'Renew Trade License', assignee: 'Mohammed Al Farsi', status: 'Overdue', date: 'Sun, 16 Feb', assigneeAvatar: 'M' },
+    { title: 'Process WPS for Feb', assignee: 'Sarah Johnson', status: 'Todo', date: 'Thu, 27 Feb', assigneeAvatar: 'S' },
+    { title: 'Visa Medical for Ali', assignee: 'Rashed Khan', status: 'Doing', date: 'Mon, 17 Feb', assigneeAvatar: 'R' },
+    { title: 'Submit VAT Return', assignee: 'Fatima Al Sayed', status: 'Doing', date: 'Wed, 19 Feb', assigneeAvatar: 'F' },
+    { title: 'EID Fingerprint Appt', assignee: 'John Doe', status: 'Doing', date: 'Tue, 18 Feb', assigneeAvatar: 'J' },
 ];
 
 const interviewsData = [
-    { day: '17', time: '09:00AM - 10:00AM', name: 'Ahmad Zainy', timezone: 'GMT+8' },
-    { day: '17', time: '11:00AM - 12:00AM', name: 'Yahyo', timezone: 'GMT+7' },
-    { day: '17', time: '01:00PM - 02:00PM', name: 'Tea Assiddiq', timezone: 'GMT+9', active: true },
-    { day: '18', time: '11:00AM - 12:00AM', name: 'Ahmad Zainy', timezone: 'GMT+1' },
-    { day: '19', time: '01:00PM - 02:00PM', name: 'Panji Dwi', timezone: 'GMT+8' },
-    { day: '19', time: '02:00PM - 03:00PM', name: 'Panji Dwi', timezone: 'GMT+8' },
+    { day: '17', time: '09:00AM - 10:00AM', name: 'Khalid Al Mansoori', timezone: 'GMT+4' },
+    { day: '17', time: '11:00AM - 12:00PM', name: 'Priya Kapoor', timezone: 'GMT+4' },
+    { day: '17', time: '02:00PM - 03:00PM', name: 'Omar Al Balooshi', timezone: 'GMT+4', active: true },
+    { day: '18', time: '10:00AM - 11:00AM', name: 'James Wilson', timezone: 'GMT+4' },
+    { day: '19', time: '12:30PM - 01:30PM', name: 'Aisha Hassan', timezone: 'GMT+4' },
 ];
 
 const complianceData = [
-    { name: 'Tea Assiddiq', progress: 50 },
-    { name: 'Rizki Kurniawan', progress: 25 },
-    { name: 'Taufik Hidayat', progress: 80 },
-    { name: 'Mufti Hidayat', progress: 25 },
-    { name: 'Wildan Athok', progress: 10 },
+    { name: 'Visa Renewal (Ahmed)', progress: 75 },
+    { name: 'Labor Card (Maria)', progress: 40 },
+    { name: 'Health Ins. (Team A)', progress: 90 },
+    { name: 'EID Update (Sales)', progress: 20 },
+    { name: 'Tawteen Quota', progress: 60 },
 ];
 
 const applicantsData = [
-    { name: 'Liam Carter', role: 'IT Support for School', avatar: 'L' },
-    { name: 'Aditya Irawan', role: 'Math Teacher', avatar: 'A' },
-    { name: 'Jamal Mahfud', role: 'IT Support for School', avatar: 'J' },
-    { name: 'Mason Turner', role: 'School Administrator', avatar: 'M' },
-    { name: 'Panji Dwi', role: 'Teacher Assistant', avatar: 'P' },
+    { name: 'Layla Mahmoud', role: 'HR Manager', avatar: 'L' },
+    { name: 'Bilal Saeed', role: 'Public Relations Officer (PRO)', avatar: 'B' },
+    { name: 'Kieran Smith', role: 'Senior Developer', avatar: 'K' },
+    { name: 'Fatima Al Qasimi', role: 'Marketing Specialist', avatar: 'F' },
+    { name: 'Rajesh Kumar', role: 'General Accountant', avatar: 'R' },
 ];
 
 // Components
