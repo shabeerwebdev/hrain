@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Layout,
     Menu,
@@ -40,7 +40,9 @@ import {
     SafetyCertificateOutlined,
     RiseOutlined,
     PlusOutlined,
-    GlobalOutlined
+    GlobalOutlined,
+    SunOutlined,
+    MoonOutlined
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
@@ -88,9 +90,9 @@ const applicantsData = [
 ];
 
 // Components
-const StatCard = ({ title, value, trend, icon }) => {
+const StatCard = ({ title, value, trend, icon, isDarkMode }) => {
     return (
-        <Card bordered={false} style={{ height: '100%', borderRadius: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+        <Card bordered={true} style={{ height: '100%', borderRadius: 12, borderColor: isDarkMode ? '#303030' : '#d9d9d9' }}>
             <Space direction="vertical" style={{ width: '100%' }} size={0}>
                 <Space style={{ width: '100%', justifyContent: 'space-between', color: '#8c8c8c' }}>
                     <Space>
@@ -113,7 +115,7 @@ const StatCard = ({ title, value, trend, icon }) => {
                         <div key={i} style={{
                             width: '12%',
                             height: `${h}%`,
-                            backgroundColor: i === 5 ? '#1677ff' : '#f0f0f0',
+                            backgroundColor: i === 5 ? '#696cff' : (isDarkMode ? '#303030' : '#f0f0f0'),
                             borderRadius: 4
                         }} />
                     ))}
@@ -128,12 +130,17 @@ const StatCard = ({ title, value, trend, icon }) => {
     );
 };
 
-const CustomDashboard = () => {
+const CustomDashboard = ({ isDarkMode, toggleTheme }) => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
     const [collapsed, setCollapsed] = useState(false);
+
+    // Update body background on theme change
+    useEffect(() => {
+        document.body.style.backgroundColor = isDarkMode ? '#141414' : '#f0f2f5';
+    }, [isDarkMode]);
 
     // Menu Items
     const items = [
@@ -216,14 +223,14 @@ const CustomDashboard = () => {
     ];
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout style={{ minHeight: '100vh', background: 'transparent' }}>
             <Sider
                 width={260}
                 theme="light"
                 breakpoint="lg"
                 collapsedWidth="0"
                 style={{
-                    borderRight: '1px solid #f0f0f0',
+                    borderRight: isDarkMode ? '1px solid #303030' : '1px solid #f0f0f0',
                     position: 'fixed',
                     left: 0,
                     top: 0,
@@ -232,7 +239,8 @@ const CustomDashboard = () => {
                 }}
             >
                 <div style={{ height: 64, margin: 16, display: 'flex', alignItems: 'center', gap: 8, fontSize: 18, fontWeight: 'bold' }}>
-                    <SafetyCertificateOutlined style={{ fontSize: 24, color: '#696cff' }} /> HRAIN
+                    <SafetyCertificateOutlined style={{ fontSize: 24, color: '#696cff' }} />
+                    <Text strong>HRAIN</Text>
                 </div>
                 <Menu
                     mode="inline"
@@ -255,7 +263,7 @@ const CustomDashboard = () => {
                     })}
                 />
             </Sider>
-            <Layout style={{ marginLeft: 260, padding: '0 24px 24px' }}>
+            <Layout style={{ marginLeft: 260, padding: '0 24px 24px', background: 'transparent' }}>
                 <Header style={{
                     background: colorBgContainer,
                     padding: '0 24px',
@@ -265,7 +273,7 @@ const CustomDashboard = () => {
                     position: 'sticky',
                     top: 0,
                     zIndex: 99,
-                    borderBottom: '1px solid #f0f0f0'
+                    borderBottom: isDarkMode ? '1px solid #303030' : '1px solid #f0f0f0'
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                         <Text strong style={{ fontSize: 16 }}>Home</Text>
@@ -274,10 +282,14 @@ const CustomDashboard = () => {
                     <Input
                         prefix={<SearchOutlined style={{ color: '#ccc' }} />}
                         placeholder="Search..."
-                        style={{ width: 400, borderRadius: 8, background: '#f5f5f5', border: 'none' }}
+                        style={{ width: 400, borderRadius: 8, background: isDarkMode ? '#1f1f1f' : '#f5f5f5', border: 'none' }}
                     />
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                        <Button
+                            icon={isDarkMode ? <SunOutlined /> : <MoonOutlined />}
+                            onClick={toggleTheme}
+                        />
                         <Button type="primary" style={{ background: '#696cff', borderRadius: 8 }} icon={<RiseOutlined />}>Upgrade</Button>
                         <Badge count={2} size="small">
                             <Button shape="circle" icon={<BellOutlined />} />
@@ -295,7 +307,7 @@ const CustomDashboard = () => {
                     <Row gutter={[24, 24]}>
                         {statsData.map((stat, index) => (
                             <Col xs={24} sm={12} lg={6} key={index}>
-                                <StatCard {...stat} />
+                                <StatCard {...stat} isDarkMode={isDarkMode} />
                             </Col>
                         ))}
                     </Row>
@@ -306,8 +318,8 @@ const CustomDashboard = () => {
                             <Card
                                 title={<span><CheckSquareOutlined /> Upcoming Task</span>}
                                 extra={<a href="#" style={{ color: '#1677ff', fontWeight: 500 }}>View more &gt;</a>}
-                                bordered={false}
-                                style={{ borderRadius: 12, height: '100%', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+                                bordered={true}
+                                style={{ borderRadius: 12, height: '100%', borderColor: isDarkMode ? '#303030' : '#d9d9d9' }}
                                 bodyStyle={{ padding: 0 }}
                             >
                                 <Table
@@ -326,8 +338,8 @@ const CustomDashboard = () => {
                             <Card
                                 title={<span><TeamOutlined /> Upcoming Interview</span>}
                                 extra={<a href="#" style={{ color: '#1677ff', fontWeight: 500 }}>View more &gt;</a>}
-                                bordered={false}
-                                style={{ borderRadius: 12, height: '100%', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+                                bordered={true}
+                                style={{ borderRadius: 12, height: '100%', borderColor: isDarkMode ? '#303030' : '#d9d9d9' }}
                             >
                                 <Space direction="vertical" size="middle" style={{ width: '100%' }}>
                                     <div style={{ textAlign: 'center' }}>
@@ -339,7 +351,7 @@ const CustomDashboard = () => {
                                             <div key={idx} style={{ display: 'flex', gap: 16 }}>
                                                 <div style={{
                                                     minWidth: 48, height: 48,
-                                                    borderRadius: 8, background: '#f5f5f5',
+                                                    borderRadius: 8, background: isDarkMode ? '#1f1f1f' : '#f5f5f5',
                                                     display: 'flex', flexDirection: 'column',
                                                     alignItems: 'center', justifyContent: 'center',
                                                     fontWeight: 'bold',
@@ -350,10 +362,10 @@ const CustomDashboard = () => {
                                                 </div>
                                                 <div style={{
                                                     flex: 1,
-                                                    border: `1px solid ${interview.active ? '#1677ff' : '#f0f0f0'}`,
+                                                    border: `1px solid ${interview.active ? '#1677ff' : (isDarkMode ? '#303030' : '#f0f0f0')}`,
                                                     borderRadius: 12,
                                                     padding: '12px 16px',
-                                                    background: interview.active ? '#e6f7ff' : '#fff',
+                                                    background: interview.active ? (isDarkMode ? '#111b26' : '#e6f7ff') : (isDarkMode ? '#141414' : '#fff'),
                                                     display: 'flex',
                                                     flexDirection: 'column',
                                                     justifyContent: 'center'
@@ -378,8 +390,8 @@ const CustomDashboard = () => {
                             <Card
                                 title={<span><FileProtectOutlined /> Compliance</span>}
                                 extra={<a href="#" style={{ color: '#1677ff', fontWeight: 500 }}>View more &gt;</a>}
-                                bordered={false}
-                                style={{ borderRadius: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+                                bordered={true}
+                                style={{ borderRadius: 12, borderColor: isDarkMode ? '#303030' : '#d9d9d9' }}
                             >
                                 <List
                                     itemLayout="horizontal"
@@ -404,8 +416,8 @@ const CustomDashboard = () => {
                             <Card
                                 title={<span><UsergroupAddOutlined /> Latest Applicant</span>}
                                 extra={<a href="#" style={{ color: '#1677ff', fontWeight: 500 }}>View more &gt;</a>}
-                                bordered={false}
-                                style={{ borderRadius: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+                                bordered={true}
+                                style={{ borderRadius: 12, borderColor: isDarkMode ? '#303030' : '#d9d9d9' }}
                             >
                                 <List
                                     itemLayout="horizontal"
@@ -431,14 +443,16 @@ const CustomDashboard = () => {
 };
 
 const App = () => {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
     return (
         <ConfigProvider
             theme={{
-                algorithm: theme.defaultAlgorithm,
+                algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
                 token: {
                     colorPrimary: '#696cff',
                     borderRadius: 8,
-                    fontFamily: 'Inter, sans-serif',
+                    fontFamily: '"Open Sans", sans-serif',
                 },
                 components: {
                     Card: {
@@ -446,13 +460,13 @@ const App = () => {
                         headerFontWeight: 600,
                     },
                     Table: {
-                        headerBg: '#fff',
+                        headerBg: isDarkMode ? '#1f1f1f' : '#fff',
                         headerColor: '#8c8c8c',
                     }
                 }
             }}
         >
-            <CustomDashboard />
+            <CustomDashboard isDarkMode={isDarkMode} toggleTheme={() => setIsDarkMode(!isDarkMode)} />
         </ConfigProvider>
     );
 };
