@@ -300,7 +300,7 @@ const CustomDashboard = ({ isDarkMode, toggleTheme }) => {
 
                 <Content style={{ margin: '24px 0 0', minHeight: 280 }}>
                     <Title level={3} style={{ fontWeight: 'normal', margin: '0 0 24px' }}>
-                        Hello <span style={{ fontWeight: 'bold' }}>Virgil Varelino</span>, Welcome Back
+                        Hello <span style={{ fontWeight: 'bold' }}>HRAIN</span>, Welcome Back
                     </Title>
 
                     {/* Stats Row */}
@@ -443,7 +443,7 @@ const CustomDashboard = ({ isDarkMode, toggleTheme }) => {
 };
 
 const App = () => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(true);
 
     return (
         <ConfigProvider
